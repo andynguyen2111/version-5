@@ -1,0 +1,77 @@
+﻿@model IEnumerable<GMUAdmissionPortal.Models.Applicant>
+
+@{
+    ViewBag.Title = "Applicant List";
+}
+
+<h2>Applicant List</h2>
+
+@using (Html.BeginForm("Index", "Applicants", FormMethod.Get))
+{
+    @Html.TextBox("Search", null, new { @class = "search-box", @placeholder = "Search by Last Name or SSN" })
+    <input class="search" type="submit" value="Search" />
+    <input type="hidden" name="Search" id="Search" value="@ViewBag.Search" />
+}
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            Student Name
+        </th>
+        <th>
+            Submission Date
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GPA)
+        </th>
+        <th>
+            Combined SAT Score
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentSemester)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdmissionDecision)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.MiddleName)
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmissionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GPA)
+            </td>
+            <td>
+                @Html.Raw(item.MathScore + item.VerbalScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentSemester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdmissionDecision)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
